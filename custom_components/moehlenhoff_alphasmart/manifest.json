@@ -4,7 +4,7 @@
   "codeowners": ["@thomasgrastein"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://www.home-assistant.io/integrations/moehlenhoff_alphasmart",
+  "documentation": "https://github.com/thomasgrastein/moehlenhoff_alphasmart",
   "homekit": {},
   "iot_class": "cloud_polling",
   "requirements": [
@@ -15,6 +15,6 @@
   ],
   "ssdp": [],
   "zeroconf": [],
-  "issue_tracker": "",
-  "version": "0.0.1"
+  "issue_tracker": "https://github.com/thomasgrastein/moehlenhoff_alphasmart/issues",
+  "version": "1.0.0"
 }
