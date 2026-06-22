@@ -2,5 +2,11 @@
 
 DOMAIN = "moehlenhoff_alphasmart"
 IDENTITY_ID = "IdentityId"
+CONF_DEVICE_IDS = "device_ids"
+CONF_DEVICES = "devices"
+CONF_CLOUD_INFO = "cloud_info"
+CONF_TOKENS = "tokens"
+CONF_USERNAME = "username"
+CONF_PASSWORD = "password"
 PRESET_AUTO = "auto"
 PRESET_MANUAL = "manual"

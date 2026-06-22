@@ -6,13 +6,30 @@
         "error": {
             "cannot_connect": "Failed to connect",
             "invalid_auth": "Invalid authentication",
-            "unknown": "Unexpected error"
+            "unknown": "Unexpected error",
+            "no_devices_selected": "Select at least one device"
         },
         "step": {
             "user": {
                 "data": {
                     "password": "Password",
                     "username": "Username"
+                }
+            },
+            "select_devices": {
+                "title": "Select devices",
+                "data": {
+                    "device_ids": "Devices"
+                }
+            }
+        },
+        "options": {
+            "step": {
+                "init": {
+                    "title": "Select devices",
+                    "data": {
+                        "device_ids": "Devices"
+                    }
                 }
             }
         }

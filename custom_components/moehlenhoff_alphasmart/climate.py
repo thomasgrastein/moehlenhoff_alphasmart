@@ -7,7 +7,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import AlphaSmartCoordinator
-from .const import DOMAIN, PRESET_AUTO, PRESET_MANUAL
+from .const import CONF_DEVICE_IDS, CONF_DEVICES, DOMAIN, PRESET_AUTO, PRESET_MANUAL
 
 
 async def async_setup_entry(
@@ -18,12 +18,28 @@ async def async_setup_entry(
     """Add AlphaSmartClimate entities from a config_entry."""
     coordinator: AlphaSmartCoordinator = hass.data[DOMAIN][config_entry.entry_id]
     collect = []
-    for device in hass.data[DOMAIN]["data"]["devices"]:
-        if device["oem"] == "Moehlenhoff" and device["deviceId"] not in [
-            "5f5ad901-e014-4c55-94c9-fd8d4e96bf0d",
-            "c32401c5-a65c-4be8-8099-187a5bfea52a",
-        ]:
-            collect.append(AlphaSmartClimate(coordinator, device["deviceId"]))
+    device_ids = list(
+        config_entry.options.get(
+            CONF_DEVICE_IDS,
+            hass.data[DOMAIN]["data"].get(CONF_DEVICE_IDS, []),
+        )
+    )
+    devices = hass.data[DOMAIN]["data"].get(CONF_DEVICES, [])
+    device_map = {device["deviceId"]: device for device in devices}
+    for device_id in device_ids:
+        if device_id not in coordinator.data:
+            continue
+        device = device_map.get(device_id, {})
+        if device.get("oem") and device.get("oem") not in {"Moehlenhoff", "alphaSmart"}:
+            continue
+        if device.get("type") in {"gateway", "baseStation"}:
+            continue
+        if device.get("isGateway") or device.get("isBaseStation"):
+            continue
+        data = coordinator.data[device_id]
+        if not any(key in data for key in ("30", "31")):
+            continue
+        collect.append(AlphaSmartClimate(coordinator, device_id))
     async_add_entities(collect)
 
 
